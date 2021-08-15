@@ -42,5 +42,19 @@ namespace Fmod5Sharp.Tests
             
             //Cannot assert on length output bytes because it changes with the version of libvorbis you use.
         }
+
+        [Fact]
+        public void LongerFilesWorkToo()
+        {
+            var rawData = LoadResource("long_vorbis.fsb");
+
+            var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
+
+            var sample = samples[0];
+            
+            var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
+            
+            Assert.NotEmpty(oggBytes);
+        }
     }
 }
