@@ -1,7 +1,7 @@
 # Fmod5Sharp
 ## Managed decoder for FMOD 5 sound banks (FSB files).
 
-[![NuGet](https://img.shields.io/nuget/v/Fmod5Sharp)](https://www.nuget.org/packages/Fmod5Sharp/)
+[![NuGet](https://img.shields.io/nuget/v/Fmod5Sharp?)](https://www.nuget.org/packages/Fmod5Sharp/)
 
 This library allows you to read FMOD 5 sound bank files (they start with the characters FSB5) into their contained samples,
 and then export those samples to ogg files (assuming the contained data is vorbis-encoded).
@@ -44,3 +44,5 @@ var oggFileBytes = FmodVorbisRebuilder.RebuildOggFile(samples[0]);
 //Now you can save oggFileBytes to an .ogg file on your disk and play it using your favourite audio player.
 //Or you can use any standard library to convert the byte array to a different format, if you so desire.
 ```
+
+If the user's system does not have libopus or libvorbis, this will throw a `DllNotFoundException`.
