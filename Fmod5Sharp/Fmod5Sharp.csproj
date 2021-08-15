@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Release;Debug</Configurations>
+        <Platforms>x86;x64;AnyCPU</Platforms>
+        <Version>1.0.0</Version>
+        <PackageId>Fmod5Sharp</PackageId>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/SamboyCoding/Fmod5Sharp.git</RepositoryUrl>
+        <Description>Decoder for FMOD 5 sound banks (FSB files)</Description>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OggVorbisSharp" Version="1.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="FmodVorbis\vorbis_headers.json" />
+      <EmbeddedResource Include="FmodVorbis\vorbis_headers.json" />
+    </ItemGroup>
+
+</Project>
