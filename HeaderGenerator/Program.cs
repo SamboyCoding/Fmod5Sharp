@@ -36,12 +36,14 @@ namespace HeaderGenerator
             {
                 var colonPos = entry.IndexOf(':');
                 var num = entry[..colonPos];
-                var body = entry[(colonPos + 1)..].Trim().TrimEnd('}');
+                var body = entry[(colonPos + 1)..].TrimStart().TrimEnd('}', '\n', '\r');
 
                 var contentStringBuilder = new StringBuilder();
                 foreach (var line in body.Split("\n"))
                 {
-                    var trimmed = line.Trim();
+                    var trimmed = line.Trim().EndsWith("'") || line.Trim().EndsWith("\"") 
+                        ? line.Trim() 
+                        : line.TrimStart(); //Preserve whitespace at end if this is the last line of the block.
 
                     if (trimmed.StartsWith("b"))
                         trimmed = trimmed[2..];
@@ -85,6 +87,7 @@ namespace HeaderGenerator
                 }
 
                 result[uint.Parse(num)] = headerBytes.ToArray();
+                Console.WriteLine($"Parsed {num} => {headerBytes.ToArray().Length} bytes");
             }
 
             var jsonValue = JsonSerializer.Serialize(result, new JsonSerializerOptions
