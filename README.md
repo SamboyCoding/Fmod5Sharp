@@ -12,7 +12,8 @@ Support for more encodings can be added as requested.
 In order to restore ogg files from the Fmod sample data, this library uses libopus and libvorbis.
 These are not provided, and must be installed separately or shipped with your application.
 If on windows, they should be named `opus.dll` and `vorbis.dll`.
-On other platforms, installing libopus or libvorbis should be sufficient, but I haven't tested this.
+On other platforms, installing libopus and libvorbis will suffice.
+Most linux distributions ship the required files under the package names `libopus-dev` and `libvorbis-dev`.
 
 Regardless, the architecture of the native assemblies must match that of your application, or you will get a `BadImageFormatException` 
 thrown by the system. 
