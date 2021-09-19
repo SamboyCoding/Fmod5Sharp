@@ -20,8 +20,8 @@ namespace Fmod5Sharp
                 WaveFormatEncoding.Pcm,
                 sample.Metadata.Frequency,
                 numChannels,
-                sample.Metadata.Frequency * numChannels,
-                numChannels,
+                sample.Metadata.Frequency * numChannels * width,
+                numChannels * width,
                 width * 8
             );
             using var stream = new MemoryStream();

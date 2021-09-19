@@ -6,6 +6,8 @@ namespace Fmod5Sharp
 {
 	internal class FmodSampleChunk : IBinaryReadable
 	{
+		internal static FmodSampleMetadata? CurrentSample;
+		
 		public FmodSampleChunkType ChunkType;
 		public uint ChunkSize;
 		public bool MoreChunks;
@@ -24,6 +26,7 @@ namespace Fmod5Sharp
 				FmodSampleChunkType.FREQUENCY => new FrequencyChunkData(),
 				FmodSampleChunkType.CHANNELS => new ChannelChunkData(),
 				FmodSampleChunkType.LOOP => new LoopChunkData(),
+				FmodSampleChunkType.DSPCOEFF => new DspCoefficientsBlockData(CurrentSample!),
 				_ => new UnknownChunkData(),
 			};
 

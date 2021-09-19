@@ -12,12 +12,12 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <PlatformTarget>x86</PlatformTarget>
+        <PlatformTarget>x86</PlatformTarget>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
-        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -29,16 +29,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Fmod5Sharp\Fmod5Sharp.csproj" />
+        <ProjectReference Include="..\Fmod5Sharp\Fmod5Sharp.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="TestResources\short_vorbis.fsb" />
-      <EmbeddedResource Include="TestResources\short_vorbis.fsb" />
-      <None Remove="TestResources\long_vorbis.fsb" />
-      <EmbeddedResource Include="TestResources\long_vorbis.fsb" />
-      <None Remove="TestResources\pcm16.fsb" />
-      <EmbeddedResource Include="TestResources\pcm16.fsb" />
+        <None Remove="TestResources\short_vorbis.fsb"/>
+        <EmbeddedResource Include="TestResources\short_vorbis.fsb"/>
+        <None Remove="TestResources\long_vorbis.fsb"/>
+        <EmbeddedResource Include="TestResources\long_vorbis.fsb"/>
+        <None Remove="TestResources\pcm16.fsb"/>
+        <EmbeddedResource Include="TestResources\pcm16.fsb"/>
+        <None Remove="TestResources\gcadpcm.fsb"/>
+        <EmbeddedResource Include="TestResources\gcadpcm.fsb"/>
     </ItemGroup>
 
 </Project>

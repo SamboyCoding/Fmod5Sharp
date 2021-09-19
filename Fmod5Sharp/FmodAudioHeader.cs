@@ -23,39 +23,42 @@ namespace Fmod5Sharp
 				return;
 			}
 
-			Version = reader.ReadUInt32();
-			NumSamples = reader.ReadUInt32();
-			var sizeOfSampleHeaders = reader.ReadUInt32();
-			var nameTableSize = reader.ReadUInt32();
-			DataSize = reader.ReadUInt32();
-			AudioType = (FmodAudioType) reader.ReadUInt32();
+			Version = reader.ReadUInt32(); //0x04
+			NumSamples = reader.ReadUInt32(); //0x08
+			var sizeOfSampleHeaders = reader.ReadUInt32(); //0x0C
+			var nameTableSize = reader.ReadUInt32(); //0x10
+			DataSize = reader.ReadUInt32(); //0x14
+			AudioType = (FmodAudioType) reader.ReadUInt32(); //0x18
 			
-			reader.ReadUInt64(); //Ignored, called "zero" in python
-
-			//128-bit hash
-			var hashLower = reader.ReadUInt64();
-			var hashUpper = reader.ReadUInt64();
-
-			reader.ReadUInt64(); //Ignored, called "dummy" in python
-
 			if (Version == 0)
 			{
-				reader.ReadUInt32(); //Ignored, called "unknown" in python
+				reader.ReadUInt32(); //Version 0 has an extra field at 0x1C
 			}
+			
+			reader.ReadUInt64(); //Skip 0x1C (zero) and 0x20 (flags)
+
+			//128-bit hash
+			var hashLower = reader.ReadUInt64(); //0x24
+			var hashUpper = reader.ReadUInt64(); //0x30
+
+			reader.ReadUInt64(); //Skip unknown value at 0x34
 
 			var sampleHeadersStart = reader.Position();
 			for (var i = 0; i < NumSamples; i++)
 			{
-				FmodSampleMetadata sampleMetadata = reader.ReadEnadian<FmodSampleMetadata>();
+				FmodSampleMetadata sampleMetadata = reader.ReadEndian<FmodSampleMetadata>();
 
+				FmodSampleChunk.CurrentSample = sampleMetadata;
 				var continueReadingChunks = sampleMetadata.HasAnyChunks;
 				List<FmodSampleChunk> chunks = new();
 				while (continueReadingChunks)
 				{
-					FmodSampleChunk nextChunk = reader.ReadEnadian<FmodSampleChunk>();
+					FmodSampleChunk nextChunk = reader.ReadEndian<FmodSampleChunk>();
 					continueReadingChunks = nextChunk.MoreChunks;
 					chunks.Add(nextChunk);
 				}
+				
+				FmodSampleChunk.CurrentSample = null;
 
 				if (chunks.FirstOrDefault(c => c.ChunkType == FmodSampleChunkType.FREQUENCY) is { ChunkData: FrequencyChunkData fcd })
 				{

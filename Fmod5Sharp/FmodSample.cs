@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Fmod5Sharp.FmodVorbis;
 
 namespace Fmod5Sharp
@@ -15,14 +16,29 @@ namespace Fmod5Sharp
 			SampleBytes = sampleBytes;
 		}
 
-		public byte[] RebuildAsStandardFileFormat() =>
-			MyBank!.Header.AudioType switch
+		public bool RebuildAsStandardFileFormat([NotNullWhen(true)] out byte[]? data, [NotNullWhen(true)] out string? fileExtension)
+		{
+			switch(MyBank!.Header.AudioType)
 			{
-				FmodAudioType.VORBIS => FmodVorbisRebuilder.RebuildOggFile(this),
-				FmodAudioType.PCM8 => FmodPcmRebuilder.Rebuild(this, MyBank.Header.AudioType),
-				FmodAudioType.PCM16 => FmodPcmRebuilder.Rebuild(this, MyBank.Header.AudioType),
-				FmodAudioType.PCM32 => FmodPcmRebuilder.Rebuild(this, MyBank.Header.AudioType),
-				_ => throw new NotSupportedException($"Rebuilding of audio type {MyBank.Header.AudioType} not yet implemented. Please open a ticket on the GitHub repository for support.")
-			};
+				case FmodAudioType.VORBIS:
+					data = FmodVorbisRebuilder.RebuildOggFile(this);
+					fileExtension = "ogg";
+					return data.Length > 0;
+				case FmodAudioType.PCM8:
+				case FmodAudioType.PCM16:
+				case FmodAudioType.PCM32:
+					data = FmodPcmRebuilder.Rebuild(this, MyBank.Header.AudioType);
+					fileExtension = "wav";
+					return data.Length > 0;
+				case FmodAudioType.GCADPCM:
+					data = FmodGcadPcmRebuilder.Rebuild(this);
+					fileExtension = "wav";
+					return data.Length > 0;
+				default:
+					data = null;
+					fileExtension = null;
+					return false;
+			}
+		}
 	}
 }

@@ -5,7 +5,7 @@ namespace Fmod5Sharp
 {
     internal static class Extensions
     {
-        internal static T ReadEnadian<T>(this BinaryReader reader) where T : IBinaryReadable, new()
+        internal static T ReadEndian<T>(this BinaryReader reader) where T : IBinaryReadable, new()
         {
             var t = new T();
             t.Read(reader);
