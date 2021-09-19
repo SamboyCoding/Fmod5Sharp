@@ -37,6 +37,8 @@
       <EmbeddedResource Include="TestResources\short_vorbis.fsb" />
       <None Remove="TestResources\long_vorbis.fsb" />
       <EmbeddedResource Include="TestResources\long_vorbis.fsb" />
+      <None Remove="TestResources\pcm16.fsb" />
+      <EmbeddedResource Include="TestResources\pcm16.fsb" />
     </ItemGroup>
 
 </Project>

@@ -16,6 +16,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="NAudio.Core" Version="2.0.0" />
       <PackageReference Include="OggVorbisSharp" Version="1.0.0" />
     </ItemGroup>
 

@@ -16,7 +16,8 @@ namespace Fmod5Sharp
 			{ 6, 24_000 },
 			{ 7, 32_000 },
 			{ 8, 44_100 },
-			{ 9, 48_000 }
+			{ 9, 48_000 },
+			{ 10, 96_000 },
 		};
 
 		public static FmodSoundBank LoadFsbFromByteArray(byte[] bankBytes)

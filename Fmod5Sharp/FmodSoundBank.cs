@@ -11,6 +11,7 @@ namespace Fmod5Sharp
         {
             Header = header;
             Samples = samples;
+            Samples.ForEach(s => s.MyBank = this);
         }
     }
 }

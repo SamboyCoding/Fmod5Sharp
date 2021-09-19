@@ -1,26 +1,15 @@
-using System;
-using System.IO;
-using System.Reflection;
 using Fmod5Sharp.FmodVorbis;
 using Xunit;
 
 namespace Fmod5Sharp.Tests
 {
 
-    public class Fmod5SharpTests
+    public class Fmod5SharpVorbisTests
     {
-        private static byte[] LoadResource(string filename)
-        {
-            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Fmod5Sharp.Tests.TestResources.{filename}") ?? throw new Exception($"File {filename} not found.");
-            using BinaryReader reader = new BinaryReader(stream);
-
-            return reader.ReadBytes((int)stream.Length);
-        }
-        
         [Fact]
         public void SoundBanksCanBeLoaded()
         {
-            var rawData = LoadResource("short_vorbis.fsb");
+            var rawData = this.LoadResource("short_vorbis.fsb");
 
             var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
 
@@ -30,7 +19,7 @@ namespace Fmod5Sharp.Tests
         [Fact]
         public void VorbisAudioCanBeRestoredWithoutExceptions()
         {
-            var rawData = LoadResource("short_vorbis.fsb");
+            var rawData = this.LoadResource("short_vorbis.fsb");
 
             var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
 
@@ -46,7 +35,7 @@ namespace Fmod5Sharp.Tests
         [Fact]
         public void LongerFilesWorkToo()
         {
-            var rawData = LoadResource("long_vorbis.fsb");
+            var rawData = this.LoadResource("long_vorbis.fsb");
 
             var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
 
