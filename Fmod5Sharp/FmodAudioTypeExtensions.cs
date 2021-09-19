@@ -1,8 +1,8 @@
 ﻿namespace Fmod5Sharp
 {
-    public class FmodAudioTypeExtensions
+    public static class FmodAudioTypeExtensions
     {
-        public static bool IsSupported(FmodAudioType @this) =>
+        public static bool IsSupported(this FmodAudioType @this) =>
             @this switch
             {
                 FmodAudioType.VORBIS => true,
@@ -13,7 +13,7 @@
                 _ => false
             };
 
-        public static string? FileExtension(FmodAudioType @this) =>
+        public static string? FileExtension(this FmodAudioType @this) =>
             @this switch
             {
                 FmodAudioType.VORBIS => "ogg",
