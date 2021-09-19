@@ -11,7 +11,9 @@ namespace Fmod5Sharp
 		public FmodSampleChunkType ChunkType;
 		public uint ChunkSize;
 		public bool MoreChunks;
+#pragma warning disable 8618 //Non-nullable value is not defined.
 		internal IChunkData ChunkData;
+#pragma warning restore 8618
 
 		void IBinaryReadable.Read(BinaryReader reader)
 		{

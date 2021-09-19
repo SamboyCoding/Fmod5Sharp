@@ -39,7 +39,7 @@ namespace Fmod5Sharp
             {
                 //Each byte is a scale and a predictor
                 var combined = adpcm[inIndex++];
-                var scale = (1 << (combined & 0xF));
+                var scale = 1 << (combined & 0xF);
                 var predictor = combined >> 4;
 
                 //Coefficients are based on the predictor value
@@ -55,7 +55,7 @@ namespace Fmod5Sharp
                     var adpcmSample = (int) (s % 2 == 0 ? GetHighNibbleSigned(adpcm[inIndex]) : GetLowNibbleSigned(adpcm[inIndex++]));
 
                     //Adaptive processing
-                    adpcmSample = ((adpcmSample * scale) << 11);
+                    adpcmSample = (adpcmSample * scale) << 11;
                     adpcmSample = (adpcmSample + 1024 + coeff1 * hist1 + coeff2 * hist2) >> 11;
                     var clampedSample = Clamp16(adpcmSample);
 

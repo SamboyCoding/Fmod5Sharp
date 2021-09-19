@@ -4,7 +4,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Fmod5Sharp?)](https://www.nuget.org/packages/Fmod5Sharp/)
 
 This library allows you to read FMOD 5 sound bank files (they start with the characters FSB5) into their contained samples,
-and then export those samples to ogg files (assuming the contained data is vorbis-encoded).
+and then export those samples to standard file formats (assuming the contained data format is supported).
 
 Support for more encodings can be added as requested.
 
@@ -38,11 +38,39 @@ uint numChannels = samples[0].Channels; //2 for stereo, 1 for mono.
 ```
 
 And, you can convert the audio data back to a standard format.
-For example if `bank.Header.AudioType == FmodAudioType.VORBIS`:
 ```c#
-var oggFileBytes = FmodVorbisRebuilder.RebuildOggFile(samples[0]);
-//Now you can save oggFileBytes to an .ogg file on your disk and play it using your favourite audio player.
+var success = samples[0].RebuildAsStandardFileFormat(out var dataBytes, out var fileExtension);
+//Assuming success == true, then this file format was supported and you should have some data and an extension (without the leading .).
+//Now you can save dataBytes to an file with the given extension on your disk and play it using your favourite audio player.
 //Or you can use any standard library to convert the byte array to a different format, if you so desire.
 ```
 
-If the user's system does not have libopus or libvorbis, this will throw a `DllNotFoundException`.
+If the user's system does not have libopus or libvorbis, and the data is vorbis-encoded, this will throw a `DllNotFoundException`.
+
+You can also check if a given format type is supported and, if so, what extension it will result in, like so:
+```c#
+bool isSupported = bank.Header.AudioType.IsSupported();
+
+//Null if not supported
+string? extension = bank.Header.AudioType.FileExtension();
+```
+
+Alternatively, you can consult the table below:
+
+| Format | Supported? | Extension | Notes |
+| :-----: | :--------------: | :---------: | :----------: |
+| PCM8 | ✔️ | wav | |
+| PCM16 | ✔️ | wav | |
+| PCM24 | ❌ | | |
+| PCM32 | ✔️ | wav | |
+| PCMFLOAT | ❌ | | |
+| GCADPCM | ✔️ | wav | Tested with single-channel files. Not tested with stereo, but should work in theory. |
+| IMAADPCM | ❌ | | |
+| VAG | ❌ | | |
+| HEVAG | ❌ | | |
+| XMA | ❌ | | |
+| MPEG | ❌ | | |
+| CELT | ❌ | | |
+| AT9 | ❌ | | | 
+| XWMA | ❌ | | |
+| VORBIS | ✔️ | ogg | Requires native libraries on user's system. |
