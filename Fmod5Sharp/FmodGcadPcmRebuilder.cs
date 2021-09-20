@@ -52,7 +52,7 @@ namespace Fmod5Sharp
                 for (var s = 0; s < samplesToRead; s++)
                 {
                     //Raw value
-                    var adpcmSample = (int) (s % 2 == 0 ? GetHighNibbleSigned(adpcm[inIndex]) : GetLowNibbleSigned(adpcm[inIndex++]));
+                    var adpcmSample = (int) (s % 2 == 0 ? Utils.GetHighNibbleSigned(adpcm[inIndex]) : Utils.GetLowNibbleSigned(adpcm[inIndex++]));
 
                     //Adaptive processing
                     adpcmSample = (adpcmSample * scale) << 11;
@@ -92,7 +92,7 @@ namespace Fmod5Sharp
             
             writer.WriteSamples(pcmShorts, 0, pcmShorts.Length);
 
-            return stream.GetBuffer();
+            return stream.ToArray();
         }
 
         private static int NibbleCountToSampleCount(int nibbleCount)
@@ -105,10 +105,6 @@ namespace Fmod5Sharp
         }
 
         private static int ByteCountToSampleCount(int byteCount) => NibbleCountToSampleCount(byteCount * 2);
-
-        private static readonly sbyte[] SignedNibbles = { 0, 1, 2, 3, 4, 5, 6, 7, -8, -7, -6, -5, -4, -3, -2, -1 };
-        private static sbyte GetHighNibbleSigned(byte value) => SignedNibbles[(value >> 4) & 0xF];
-        private static sbyte GetLowNibbleSigned(byte value) => SignedNibbles[value & 0xF];
 
         private static short Clamp16(int value)
         {

@@ -10,6 +10,7 @@
                 FmodAudioType.PCM16 => true,
                 FmodAudioType.PCM32 => true,
                 FmodAudioType.GCADPCM => true,
+                FmodAudioType.IMAADPCM => true,
                 _ => false
             };
 
@@ -21,6 +22,7 @@
                 FmodAudioType.PCM16 => "wav",
                 FmodAudioType.PCM32 => "wav",
                 FmodAudioType.GCADPCM => "wav",
+                FmodAudioType.IMAADPCM => "wav",
                 _ => null
             };
     }

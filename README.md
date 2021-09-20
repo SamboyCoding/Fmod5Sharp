@@ -66,7 +66,7 @@ Alternatively, you can consult the table below:
 | PCM32 | ✔️ | wav | |
 | PCMFLOAT | ❌ | | |
 | GCADPCM | ✔️ | wav | Tested with single-channel files. Not tested with stereo, but should work in theory. |
-| IMAADPCM | ❌ | | |
+| IMAADPCM | ✔️ | wav | |
 | VAG | ❌ | | |
 | HEVAG | ❌ | | |
 | XMA | ❌ | | |

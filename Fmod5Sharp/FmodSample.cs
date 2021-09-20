@@ -34,6 +34,10 @@ namespace Fmod5Sharp
 					data = FmodGcadPcmRebuilder.Rebuild(this);
 					fileExtension = "wav";
 					return data.Length > 0;
+				case FmodAudioType.IMAADPCM:
+					data = FmodImaAdPcmRebuilder.Rebuild(this);
+					fileExtension = "wav";
+					return data.Length > 0;
 				default:
 					data = null;
 					fileExtension = null;
