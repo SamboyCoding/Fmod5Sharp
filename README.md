@@ -64,7 +64,7 @@ Alternatively, you can consult the table below:
 | CELT | ❌ | | |
 | AT9 | ❌ | | | 
 | XWMA | ❌ | | |
-| VORBIS | ✔️ | ogg | Requires native libraries on user's system. |
+| VORBIS | ✔️ | ogg |  |
 
 # Acknowledgements
 
