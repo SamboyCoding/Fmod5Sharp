@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Configurations>Release;Debug</Configurations>
@@ -13,16 +12,21 @@
         <Description>Decoder for FMOD 5 sound banks (FSB files)</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="NAudio.Core" Version="2.0.0" />
-      <PackageReference Include="OggVorbisSharp" Version="1.0.0" />
+      <PackageReference Include="OggVorbisEncoder" Version="1.2.0" />
+      <PackageReference Include="rubendal.BitStream" Version="1.2.0" />
+      <PackageReference Include="System.Text.Json" Version="6.0.5" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="FmodVorbis\vorbis_headers.json" />
-      <EmbeddedResource Include="FmodVorbis\vorbis_headers.json" />
+      <None Remove="FmodVorbis\vorbis_headers_converted.json" />
+      <EmbeddedResource Include="FmodVorbis\vorbis_headers_converted.json" />
     </ItemGroup>
 
 </Project>

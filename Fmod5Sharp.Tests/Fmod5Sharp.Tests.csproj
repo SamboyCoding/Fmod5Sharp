@@ -45,6 +45,9 @@
         <EmbeddedResource Include="TestResources\imaadpcm_short.fsb" />
         <None Remove="TestResources\imaadpcm_long.fsb" />
         <EmbeddedResource Include="TestResources\imaadpcm_long.fsb" />
+        <None Remove="TestResources\broken_imaad.fsb" />
+        <None Remove="TestResources\previously_unrecoverable_vorbis.fsb" />
+        <EmbeddedResource Include="TestResources\previously_unrecoverable_vorbis.fsb" />
     </ItemGroup>
 
 </Project>

@@ -27,5 +27,19 @@ namespace Fmod5Sharp.Tests
             
             Assert.NotEmpty(bytes);
         }
+
+        [Fact]
+        public void XboxImaAdPcmBanksCanBeRebuilt()
+        {
+            var rawData = this.LoadResource("xbox_imaad.fsb");
+            
+            var fsb = FsbLoader.LoadFsbFromByteArray(rawData);
+            
+            Assert.Equal(FmodAudioType.IMAADPCM, fsb.Header.AudioType);
+            
+            var bytes = FmodImaAdPcmRebuilder.Rebuild(fsb.Samples[0]);
+            
+            Assert.NotEmpty(bytes);
+        }
     }
 }

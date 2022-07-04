@@ -43,9 +43,9 @@ namespace Fmod5Sharp
             if ((sampleNibble & 8) != 0) delta = -delta;
             sampleDecoded += delta;
 
-            hist = Math.Clamp(sampleDecoded, short.MinValue, short.MaxValue);
+            hist = Utils.Clamp((short)sampleDecoded, short.MinValue, short.MaxValue);
             stepIndex += IMA_IndexTable[sampleNibble];
-            stepIndex = Math.Clamp(stepIndex, 0, 88);
+            stepIndex = Utils.Clamp((short)stepIndex, 0, 88);
         }
 
         private static short[] GetPcm(FmodSample sample)
@@ -77,7 +77,7 @@ namespace Fmod5Sharp
                     stream.Seek(headerIndex + 2, SeekOrigin.Begin);
                     int stepIndex = reader.ReadByte();
 
-                    stepIndex = Math.Clamp(stepIndex, 0, 88);
+                    stepIndex = Utils.Clamp((short)stepIndex, 0, 88);
                     ret[sampleIndex] = (short)hist;
                     sampleIndex += numChannels;
 

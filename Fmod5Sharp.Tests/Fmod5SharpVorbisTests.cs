@@ -45,5 +45,19 @@ namespace Fmod5Sharp.Tests
             
             Assert.NotEmpty(oggBytes);
         }
+
+        [Fact]
+        public void PreviouslyUnrecoverableVorbisFilesWorkWithOurCustomRebuilder()
+        {
+            var rawData = this.LoadResource("previously_unrecoverable_vorbis.fsb");
+
+            var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
+
+            var sample = samples[0];
+            
+            var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
+            
+            Assert.NotEmpty(oggBytes);
+        }
     }
 }

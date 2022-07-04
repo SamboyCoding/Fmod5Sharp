@@ -27,7 +27,7 @@ namespace Fmod5Sharp.ChunkData
                 {
                     //We can't use ReadInt16 here because BinaryReader is little-endian, and FSB5 encodes this data big-endian
                     //So instead, read 2 bytes, reverse, then convert to short.
-                    ChannelData[ch].Add(BitConverter.ToInt16(reader.ReadBytes(2).Reverse().ToArray()));
+                    ChannelData[ch].Add(BitConverter.ToInt16(reader.ReadBytes(2).Reverse().ToArray(), 0));
                 }
                 //Extra 0xE = 14 bytes
                 reader.ReadInt64();

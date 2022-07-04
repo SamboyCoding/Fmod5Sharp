@@ -27,7 +27,7 @@ namespace Fmod5Sharp
             using var stream = new MemoryStream();
             using var writer = new WaveFileWriter(stream, format);
             
-            writer.Write(sample.SampleBytes);
+            writer.Write(sample.SampleBytes, 0, sample.SampleBytes.Length);
 
             return stream.GetBuffer();
         }
