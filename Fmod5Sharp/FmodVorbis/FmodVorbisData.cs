@@ -5,12 +5,22 @@ using BitStreams;
 
 namespace Fmod5Sharp.FmodVorbis;
 
-public class FmodVorbisData
+internal class FmodVorbisData
 {
-    public byte[] headerBytes { get; set; }
-    public int seekBit { get; set; }
+    [JsonPropertyName("headerBytes")]
+    public byte[] HeaderBytes { get; set; }
+    
+    [JsonPropertyName("seekBit")]
+    public int SeekBit { get; set; }
+    
+    [JsonConstructor]
+    public FmodVorbisData(byte[] headerBytes, int seekBit)
+    {
+        HeaderBytes = headerBytes;
+        SeekBit = seekBit;
+    }
 
-    [JsonIgnore] public byte[] blockFlags { get; private set; } = Array.Empty<byte>();
+    [JsonIgnore] public byte[] BlockFlags { get; private set; } = Array.Empty<byte>();
     
     private bool _initialized;
 
@@ -21,7 +31,7 @@ public class FmodVorbisData
 
         _initialized = true;
         
-        var bitStream = new BitStream(headerBytes);
+        var bitStream = new BitStream(HeaderBytes);
 
         if (bitStream.ReadByte() != 5) //packing type 5 == books
             return;
@@ -30,13 +40,13 @@ public class FmodVorbisData
             return;
 
         //Whole bytes, bit remainder
-        bitStream.Seek(seekBit / 8, seekBit % 8);
+        bitStream.Seek(SeekBit / 8, SeekBit % 8);
 
         //Read 6 bits and add one
         var numModes = bitStream.ReadByte(6) + 1; 
 
         //Read the first bit of each mode and skip the rest of the mode data. These are our flags.
-        blockFlags = Enumerable.Range(0, numModes).Select(_ =>
+        BlockFlags = Enumerable.Range(0, numModes).Select(_ =>
         {
             var flag = (byte)bitStream.ReadBit();
 
@@ -58,10 +68,10 @@ public class FmodVorbisData
 
         var mode = 0;
 
-        if (blockFlags.Length > 0)
-            mode = bitStream.ReadByte(blockFlags.Length - 1);
+        if (BlockFlags.Length > 0)
+            mode = bitStream.ReadByte(BlockFlags.Length - 1);
 
-        if (blockFlags[mode] == 1)
+        if (BlockFlags[mode] == 1)
             return 2048;
 
         return 256;

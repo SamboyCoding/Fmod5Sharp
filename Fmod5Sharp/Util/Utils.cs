@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.Util
 {
     internal static class Utils
     {

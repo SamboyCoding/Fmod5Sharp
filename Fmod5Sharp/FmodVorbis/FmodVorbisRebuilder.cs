@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using Fmod5Sharp.ChunkData;
+using Fmod5Sharp.Util;
 using OggVorbisEncoder;
 
 namespace Fmod5Sharp.FmodVorbis
@@ -20,7 +21,7 @@ namespace Fmod5Sharp.FmodVorbis
             using StreamReader reader = new(stream);
 
             var jsonString = reader.ReadToEnd();
-            headers = JsonSerializer.Deserialize<Dictionary<uint, FmodVorbisData>>(jsonString);
+            headers = JsonSerializer.Deserialize(jsonString, Fmod5SharpJsonContext.Default.DictionaryUInt32FmodVorbisData);
         }
 
         public static byte[] RebuildOggFile(FmodSample sample)
@@ -46,13 +47,12 @@ namespace Fmod5Sharp.FmodVorbis
             
             var infoPacket = BuildInfoPacket((byte)sample.Metadata.Channels, sample.Metadata.Frequency);
             var commentPacket = BuildCommentPacket("Fmod5Sharp (Samboy063)");
-            var setupPacket = new OggPacket(vorbisData.headerBytes, false, 0, 2);
+            var setupPacket = new OggPacket(vorbisData.HeaderBytes, false, 0, 2);
             
             //Begin building the final stream
             var oggStream = new OggStream(1);
             using var outputStream = new MemoryStream();
             
-            //TODO Do we need to flush pages between these packets?
             oggStream.PacketIn(infoPacket);
             oggStream.PacketIn(commentPacket);
             oggStream.PacketIn(setupPacket);

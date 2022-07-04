@@ -7,6 +7,8 @@ namespace Fmod5Sharp
 {
 	public class FmodAudioHeader
 	{
+		private static readonly object ChunkReadingLock = new();
+		
 		public FmodAudioType AudioType;
 		public uint Version;
 		public uint NumSamples;
@@ -46,28 +48,37 @@ namespace Fmod5Sharp
 			var sampleHeadersStart = reader.Position();
 			for (var i = 0; i < NumSamples; i++)
 			{
-				FmodSampleMetadata sampleMetadata = reader.ReadEndian<FmodSampleMetadata>();
+				var sampleMetadata = reader.ReadEndian<FmodSampleMetadata>();
 
-				FmodSampleChunk.CurrentSample = sampleMetadata;
-				var continueReadingChunks = sampleMetadata.HasAnyChunks;
-				List<FmodSampleChunk> chunks = new();
-				while (continueReadingChunks)
+				if (!sampleMetadata.HasAnyChunks)
 				{
-					FmodSampleChunk nextChunk = reader.ReadEndian<FmodSampleChunk>();
-					continueReadingChunks = nextChunk.MoreChunks;
-					chunks.Add(nextChunk);
-				}
-				
-				FmodSampleChunk.CurrentSample = null;
-
-				if (chunks.FirstOrDefault(c => c.ChunkType == FmodSampleChunkType.FREQUENCY) is { ChunkData: FrequencyChunkData fcd })
-				{
-					sampleMetadata.FrequencyId = fcd.ActualFrequencyId;
+					Samples.Add(sampleMetadata);
+					continue;
 				}
 
-				sampleMetadata.Chunks = chunks;
+				lock (ChunkReadingLock)
+				{
+					List<FmodSampleChunk> chunks = new();
+					FmodSampleChunk.CurrentSample = sampleMetadata;
+					
+					FmodSampleChunk nextChunk;
+					do
+					{
+						nextChunk = reader.ReadEndian<FmodSampleChunk>();
+						chunks.Add(nextChunk);
+					} while (nextChunk.MoreChunks);
+
+					FmodSampleChunk.CurrentSample = null;
+					
+					if (chunks.FirstOrDefault(c => c.ChunkType == FmodSampleChunkType.FREQUENCY) is { ChunkData: FrequencyChunkData fcd })
+					{
+						sampleMetadata.FrequencyId = fcd.ActualFrequencyId;
+					}
+
+					sampleMetadata.Chunks = chunks;
 				
-				Samples.Add(sampleMetadata);
+					Samples.Add(sampleMetadata);
+				}
 			}
 
 			var actualSampleHeadersLength = reader.Position() - sampleHeadersStart;

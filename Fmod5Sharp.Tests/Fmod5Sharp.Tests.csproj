@@ -48,6 +48,8 @@
         <None Remove="TestResources\broken_imaad.fsb" />
         <None Remove="TestResources\previously_unrecoverable_vorbis.fsb" />
         <EmbeddedResource Include="TestResources\previously_unrecoverable_vorbis.fsb" />
+        <None Remove="TestResources\xbox_imaad.fsb" />
+        <EmbeddedResource Include="TestResources\xbox_imaad.fsb" />
     </ItemGroup>
 
 </Project>
