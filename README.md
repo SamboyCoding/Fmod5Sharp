@@ -72,4 +72,5 @@ This project uses:
 - [OggVorbisEncoder](https://github.com/SteveLillis/.NET-Ogg-Vorbis-Encoder) to build Ogg Vorbis output streams.
 - [NAudio.Core](https://github.com/naudio/NAudio) to do the same thing but for WAV files.
 - [BitStreams](https://github.com/rubendal/BitStream) for parsing vorbis header data.
+
 It also uses System.Text.Json.
