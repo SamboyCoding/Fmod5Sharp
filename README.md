@@ -8,16 +8,6 @@ and then export those samples to standard file formats (assuming the contained d
 
 Support for more encodings can be added as requested.
 
-## Notice (Additional Dependencies)
-In order to restore ogg files from the Fmod sample data, this library uses libopus and libvorbis.
-These are not provided, and must be installed separately or shipped with your application.
-If on windows, they should be named `opus.dll` and `vorbis.dll`.
-On other platforms, installing libopus and libvorbis will suffice.
-Most linux distributions ship the required files under the package names `libopus-dev` and `libvorbis-dev`.
-
-Regardless, the architecture of the native assemblies must match that of your application, or you will get a `BadImageFormatException` 
-thrown by the system. 
-
 ## Usage
 
 The Fmod file can be read like this
@@ -75,3 +65,11 @@ Alternatively, you can consult the table below:
 | AT9 | ❌ | | | 
 | XWMA | ❌ | | |
 | VORBIS | ✔️ | ogg | Requires native libraries on user's system. |
+
+# Acknowledgements
+
+This project uses:
+- [OggVorbisEncoder](https://github.com/SteveLillis/.NET-Ogg-Vorbis-Encoder) to build Ogg Vorbis output streams.
+- [NAudio.Core](https://github.com/naudio/NAudio) to do the same thing but for WAV files.
+- [BitStreams](https://github.com/rubendal/BitStream) for parsing vorbis header data.
+It also uses System.Text.Json.
