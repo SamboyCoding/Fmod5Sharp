@@ -59,5 +59,19 @@ namespace Fmod5Sharp.Tests
             
             Assert.NotEmpty(oggBytes);
         }
+
+        [Fact]
+        public void VorbisFilesThatPreviouslyThrewExceptionsDoNot()
+        {
+            var rawData = this.LoadResource("vorbis_with_blockflag_exception.fsb");
+
+            var samples = FsbLoader.LoadFsbFromByteArray(rawData).Samples;
+
+            var sample = samples[0];
+            
+            var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
+            
+            Assert.NotEmpty(oggBytes);
+        }
     }
 }

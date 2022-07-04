@@ -68,7 +68,7 @@ internal class FmodVorbisData
 
         var mode = 0;
 
-        if (BlockFlags.Length > 0)
+        if (BlockFlags.Length > 1)
             mode = bitStream.ReadByte(BlockFlags.Length - 1);
 
         if (BlockFlags[mode] == 1)

@@ -50,6 +50,8 @@
         <EmbeddedResource Include="TestResources\previously_unrecoverable_vorbis.fsb" />
         <None Remove="TestResources\xbox_imaad.fsb" />
         <EmbeddedResource Include="TestResources\xbox_imaad.fsb" />
+        <None Remove="TestResources\vorbis_with_blockflag_exception.fsb" />
+        <EmbeddedResource Include="TestResources\vorbis_with_blockflag_exception.fsb" />
     </ItemGroup>
 
 </Project>
