@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using Fmod5Sharp.CodecRebuilders;
+using Fmod5Sharp.FmodTypes;
+using Xunit;
 
 namespace Fmod5Sharp.Tests
 {

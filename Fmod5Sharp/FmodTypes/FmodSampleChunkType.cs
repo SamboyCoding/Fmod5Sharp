@@ -1,4 +1,4 @@
-﻿namespace Fmod5Sharp
+﻿namespace Fmod5Sharp.FmodTypes
 {
 	internal enum FmodSampleChunkType : uint
 	{

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.Util
 {
     internal static class Extensions
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using Fmod5Sharp.ChunkData;
+using Fmod5Sharp.Util;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.FmodTypes
 {
 	internal class FmodSampleChunk : IBinaryReadable
 	{

@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using Fmod5Sharp.FmodTypes;
 using NAudio.Wave;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.CodecRebuilders
 {
     public static class FmodPcmRebuilder
     {

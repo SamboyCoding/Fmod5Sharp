@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using BitStreams;
 
-namespace Fmod5Sharp.FmodVorbis;
+namespace Fmod5Sharp.Util;
 
 internal class FmodVorbisData
 {
@@ -20,7 +20,7 @@ internal class FmodVorbisData
         SeekBit = seekBit;
     }
 
-    [JsonIgnore] public byte[] BlockFlags { get; private set; } = Array.Empty<byte>();
+    [JsonIgnore] private byte[] BlockFlags { get; set; } = Array.Empty<byte>();
     
     private bool _initialized;
 

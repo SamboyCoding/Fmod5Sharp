@@ -2,8 +2,9 @@
 using System.IO;
 using System.Linq;
 using Fmod5Sharp.ChunkData;
+using Fmod5Sharp.Util;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.FmodTypes
 {
 	public class FmodAudioHeader
 	{

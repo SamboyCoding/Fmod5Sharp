@@ -5,10 +5,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using Fmod5Sharp.ChunkData;
+using Fmod5Sharp.FmodTypes;
 using Fmod5Sharp.Util;
 using OggVorbisEncoder;
 
-namespace Fmod5Sharp.FmodVorbis
+namespace Fmod5Sharp.CodecRebuilders
 {
     public static class FmodVorbisRebuilder
     {
@@ -16,8 +17,8 @@ namespace Fmod5Sharp.FmodVorbis
 
         private static void LoadVorbisHeaders()
         {
-            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Fmod5Sharp.FmodVorbis.vorbis_headers_converted.json")
-                                  ?? throw new Exception($"Embedded resources for vorbis header data not found, has the assembly been tampered with?");
+            using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"Fmod5Sharp.Util.vorbis_headers_converted.json")
+                               ?? throw new Exception($"Embedded resources for vorbis header data not found, has the assembly been tampered with?");
             using StreamReader reader = new(stream);
 
             var jsonString = reader.ReadToEnd();

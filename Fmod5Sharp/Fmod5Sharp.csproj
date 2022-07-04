@@ -27,7 +27,10 @@
     <ItemGroup>
       <None Remove="FmodVorbis\vorbis_headers.json" />
       <None Remove="FmodVorbis\vorbis_headers_converted.json" />
-      <EmbeddedResource Include="FmodVorbis\vorbis_headers_converted.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Util\vorbis_headers_converted.json" />
     </ItemGroup>
 
 </Project>

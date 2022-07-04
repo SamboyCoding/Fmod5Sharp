@@ -1,4 +1,4 @@
-using Fmod5Sharp.FmodVorbis;
+using Fmod5Sharp.CodecRebuilders;
 using Xunit;
 
 namespace Fmod5Sharp.Tests

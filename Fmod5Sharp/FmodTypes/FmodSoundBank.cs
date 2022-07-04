@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.FmodTypes
 {
     public class FmodSoundBank
     {

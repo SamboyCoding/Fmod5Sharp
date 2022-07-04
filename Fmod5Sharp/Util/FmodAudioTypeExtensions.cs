@@ -1,4 +1,6 @@
-﻿namespace Fmod5Sharp
+﻿using Fmod5Sharp.FmodTypes;
+
+namespace Fmod5Sharp.Util
 {
     public static class FmodAudioTypeExtensions
     {

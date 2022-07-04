@@ -1,8 +1,7 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Fmod5Sharp.FmodVorbis;
+﻿using System.Diagnostics.CodeAnalysis;
+using Fmod5Sharp.CodecRebuilders;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.FmodTypes
 {
     public class FmodSample
     {

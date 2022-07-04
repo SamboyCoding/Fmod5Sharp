@@ -1,4 +1,4 @@
-﻿namespace Fmod5Sharp
+﻿namespace Fmod5Sharp.FmodTypes
 {
 	public enum FmodAudioType : uint
 	{

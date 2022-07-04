@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using Fmod5Sharp.Util;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.FmodTypes
 {
 	public class FmodSampleMetadata : IBinaryReadable
 	{

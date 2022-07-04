@@ -2,10 +2,11 @@
 using System.IO;
 using System.Linq;
 using Fmod5Sharp.ChunkData;
+using Fmod5Sharp.FmodTypes;
 using Fmod5Sharp.Util;
 using NAudio.Wave;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.CodecRebuilders
 {
     public static class FmodGcadPcmRebuilder
     {

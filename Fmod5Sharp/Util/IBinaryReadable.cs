@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Fmod5Sharp
+namespace Fmod5Sharp.Util
 {
     internal interface IBinaryReadable
     {

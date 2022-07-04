@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Fmod5Sharp.FmodTypes;
+using Fmod5Sharp.Util;
 
 namespace Fmod5Sharp
 {
