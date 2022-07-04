@@ -5,7 +5,7 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Configurations>Release;Debug</Configurations>
         <Platforms>x86;x64;AnyCPU</Platforms>
-        <Version>2.0.0</Version>
+        <Version>2.0.1</Version>
         <PackageId>Fmod5Sharp</PackageId>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/SamboyCoding/Fmod5Sharp.git</RepositoryUrl>
@@ -15,6 +15,7 @@
         <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
         <LangVersion>10</LangVersion>
         <IsTrimmable>true</IsTrimmable>
+        <DebugType>embedded</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
