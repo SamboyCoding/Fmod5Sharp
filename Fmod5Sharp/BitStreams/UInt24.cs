@@ -2,10 +2,10 @@
 
 namespace BitStreams
 {
-	/// <summary>
-	/// Represents a 24-bit unsigned integer
-	/// </summary>
-	[Serializable]
+    /// <summary>
+    /// Represents a 24-bit unsigned integer
+    /// </summary>
+    [Serializable]
     internal struct UInt24
     {
         private byte b0, b1, b2;

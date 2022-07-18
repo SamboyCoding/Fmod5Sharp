@@ -1,6 +1,6 @@
 ﻿namespace BitStreams
 {
-	internal static class BitExtensions
+    internal static class BitExtensions
     {
 
         #region GetBit

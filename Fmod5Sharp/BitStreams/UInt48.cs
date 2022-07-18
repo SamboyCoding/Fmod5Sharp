@@ -2,10 +2,10 @@
 
 namespace BitStreams
 {
-	/// <summary>
-	/// Represents a 48-bit unsigned integer
-	/// </summary>
-	[Serializable]
+    /// <summary>
+    /// Represents a 48-bit unsigned integer
+    /// </summary>
+    [Serializable]
     internal struct UInt48
     {
         private byte b0, b1, b2, b3, b4, b5;

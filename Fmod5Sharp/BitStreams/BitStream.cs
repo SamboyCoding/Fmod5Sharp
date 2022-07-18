@@ -5,10 +5,10 @@ using System.IO;
 
 namespace BitStreams
 {
-	/// <summary>
-	/// Stream wrapper to use bit-level operations
-	/// </summary>
-	internal class BitStream
+    /// <summary>
+    /// Stream wrapper to use bit-level operations
+    /// </summary>
+    internal class BitStream
     {
         private long offset { get; set; }
         private int bit { get; set; }
