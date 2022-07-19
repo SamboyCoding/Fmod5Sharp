@@ -151,7 +151,7 @@ namespace BitStreams
         /// <param name="path">File path</param>
         /// <param name="encoding">Encoding of the file, if null default <see cref="Encoding"/> will be used</param>
         /// <returns></returns>
-        public static BitStream CreateFromFile(string path, Encoding encoding = null)
+        public static BitStream CreateFromFile(string path, Encoding? encoding = null)
         {
             if (!File.Exists(path))
             {
