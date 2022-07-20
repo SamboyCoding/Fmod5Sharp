@@ -44,8 +44,6 @@ var success = samples[0].RebuildAsStandardFileFormat(out var dataBytes, out var 
 //Or you can use any standard library to convert the byte array to a different format, if you so desire.
 ```
 
-If the user's system does not have libopus or libvorbis, and the data is vorbis-encoded, this will throw a `DllNotFoundException`.
-
 You can also check if a given format type is supported and, if so, what extension it will result in, like so:
 ```c#
 bool isSupported = bank.Header.AudioType.IsSupported();
