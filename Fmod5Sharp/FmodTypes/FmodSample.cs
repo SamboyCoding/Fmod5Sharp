@@ -7,6 +7,7 @@ namespace Fmod5Sharp.FmodTypes
     {
         public FmodSampleMetadata Metadata;
         public byte[] SampleBytes;
+        public string? Name;
         internal FmodSoundBank? MyBank;
 
         public FmodSample(FmodSampleMetadata metadata, byte[] sampleBytes)

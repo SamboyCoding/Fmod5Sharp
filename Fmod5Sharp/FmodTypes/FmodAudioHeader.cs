@@ -9,13 +9,19 @@ namespace Fmod5Sharp.FmodTypes
 	public class FmodAudioHeader
 	{
 		private static readonly object ChunkReadingLock = new();
+
+		internal readonly bool IsValid;
 		
-		public FmodAudioType AudioType;
-		public uint Version;
-		public uint NumSamples;
+		public readonly FmodAudioType AudioType;
+		public readonly uint Version;
+		public readonly uint NumSamples;
+
+		internal readonly uint SizeOfThisHeader;
+		internal readonly uint SizeOfSampleHeaders;
+		internal readonly uint SizeOfNameTable;
+		internal readonly uint SizeOfData;
 		
-		internal uint DataSize;
-		internal List<FmodSampleMetadata> Samples = new();
+		internal readonly List<FmodSampleMetadata> Samples = new();
 
 		public FmodAudioHeader(BinaryReader reader)
 		{
@@ -23,22 +29,30 @@ namespace Fmod5Sharp.FmodTypes
 
 			if (magic != "FSB5")
 			{
+				IsValid = false;
 				return;
 			}
 
 			Version = reader.ReadUInt32(); //0x04
 			NumSamples = reader.ReadUInt32(); //0x08
-			var sizeOfSampleHeaders = reader.ReadUInt32(); //0x0C
-			var nameTableSize = reader.ReadUInt32(); //0x10
-			DataSize = reader.ReadUInt32(); //0x14
+			SizeOfSampleHeaders = reader.ReadUInt32();
+			SizeOfNameTable = reader.ReadUInt32();
+			SizeOfData = reader.ReadUInt32(); //0x14
 			AudioType = (FmodAudioType) reader.ReadUInt32(); //0x18
+
+			reader.ReadUInt32(); //Skip 0x1C which is always 0
 			
 			if (Version == 0)
 			{
-				reader.ReadUInt32(); //Version 0 has an extra field at 0x1C
+				SizeOfThisHeader = 0x40;
+				reader.ReadUInt32(); //Version 0 has an extra field at 0x20 before flags
+			}
+			else
+			{
+				SizeOfThisHeader = 0x3C;
 			}
 			
-			reader.ReadUInt64(); //Skip 0x1C (zero) and 0x20 (flags)
+			reader.ReadUInt32(); //Skip 0x20 (flags)
 
 			//128-bit hash
 			var hashLower = reader.ReadUInt64(); //0x24
@@ -81,14 +95,8 @@ namespace Fmod5Sharp.FmodTypes
 					Samples.Add(sampleMetadata);
 				}
 			}
-
-			var actualSampleHeadersLength = reader.Position() - sampleHeadersStart;
-
-			if (actualSampleHeadersLength != sizeOfSampleHeaders)
-			{
-				//Skip zero-padding so we're in the right place for data.
-				reader.ReadBytes((int)(sizeOfSampleHeaders - actualSampleHeadersLength));
-			}
+			
+			IsValid = true;
 		}
 	}
 }
