@@ -12,7 +12,13 @@ Support for more encodings can be added as requested.
 
 The Fmod file can be read like this
 ```c#
+//Will throw if the bank is not valid.
 FmodSoundBank bank = FsbLoader.LoadFsbFromByteArray(rawData);
+```
+
+Or if you don't want it to throw if the file is invalid, you can use
+```c#
+bool success = FsbLoader.TryLoadFsbFromByteArray(rawData, out FmodSoundBank bank);
 ```
 
 You can then query some properties about the bank:
@@ -26,6 +32,8 @@ And get the samples stored inside it:
 List<FmodSample> samples = bank.Samples;
 int frequency = samples[0].Metadata.Frequency; //E.g. 44100
 uint numChannels = samples[0].Channels; //2 for stereo, 1 for mono.
+
+string name = samples[0].Name; //Null if not present in the bank file (which is usually the case).
 ```
 
 And, you can convert the audio data back to a standard format.
@@ -72,5 +80,6 @@ This project uses:
 - [OggVorbisEncoder](https://github.com/SteveLillis/.NET-Ogg-Vorbis-Encoder) to build Ogg Vorbis output streams.
 - [NAudio.Core](https://github.com/naudio/NAudio) to do the same thing but for WAV files.
 - [BitStreams](https://github.com/rubendal/BitStream) for parsing vorbis header data.
+- [IndexRange](https://github.com/bgrainger/IndexRange) to make my life easier when supporting .NET Standard 2.0.
 
 It also uses System.Text.Json.
