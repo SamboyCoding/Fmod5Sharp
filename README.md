@@ -58,19 +58,19 @@ Alternatively, you can consult the table below:
 | :-----: | :--------------: | :---------: | :----------: |
 | PCM8 | ✔️ | wav | |
 | PCM16 | ✔️ | wav | |
-| PCM24 | ❌ | | |
-| PCM32 | ✔️ | wav | |
-| PCMFLOAT | ❌ | | |
-| GCADPCM | ✔️ | wav | Tested with single-channel files. Not tested with stereo, but should work in theory. |
-| IMAADPCM | ✔️ | wav | |
+| PCM24 | ❌ | | No games have ever been observed in the wild using this format. |
+| PCM32 | ✔️ | wav | Supported in theory. No games have ever been observed in the wild using this format. |
+| PCMFLOAT | ❌ | | Seen in at least one JRPG. |
+| GCADPCM | ✔️ | wav | Tested with single-channel files. Not tested with stereo, but should work in theory. Seen in Unity games. |
+| IMAADPCM | ✔️ | wav | Seen in Unity games. |
 | VAG | ❌ | | No games have ever been observed in the wild using this format. |
-| HEVAG | ❌ | | |
-| XMA | ❌ | | |
-| MPEG | ❌ | | |
-| CELT | ❌ | | |
-| AT9 | ❌ | | | 
+| HEVAG | ❌ | | Very rarely used - only example I know of is a game for the PS Vita. |
+| XMA | ❌ | | Mostly used on Xbox 360. |
+| MPEG | ❌ | | Used in some older games. |
+| CELT | ❌ | | Used in some older indie games. |
+| AT9 | ❌ | | Native format for PlayStation Audio, including in Unity games. | 
 | XWMA | ❌ | | No games have ever been observed in the wild using this format. |
-| VORBIS | ✔️ | ogg |  |
+| VORBIS | ✔️ | ogg | Very commonly used in Unity games. |
 
 # Acknowledgements
 
