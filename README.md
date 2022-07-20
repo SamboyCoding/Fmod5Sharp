@@ -63,13 +63,13 @@ Alternatively, you can consult the table below:
 | PCMFLOAT | ❌ | | |
 | GCADPCM | ✔️ | wav | Tested with single-channel files. Not tested with stereo, but should work in theory. |
 | IMAADPCM | ✔️ | wav | |
-| VAG | ❌ | | |
+| VAG | ❌ | | No games have ever been observed in the wild using this format. |
 | HEVAG | ❌ | | |
 | XMA | ❌ | | |
 | MPEG | ❌ | | |
 | CELT | ❌ | | |
 | AT9 | ❌ | | | 
-| XWMA | ❌ | | |
+| XWMA | ❌ | | No games have ever been observed in the wild using this format. |
 | VORBIS | ✔️ | ogg |  |
 
 # Acknowledgements
