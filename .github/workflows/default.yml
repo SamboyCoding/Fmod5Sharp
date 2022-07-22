@@ -16,13 +16,15 @@ jobs:
                     dotnet-version: 6.x
             -   name: Install dependencies
                 run: dotnet restore
+            -   name: Tests
+                run: dotnet test
             -   name: Build
                 run: dotnet build -c Release
             -   name: Upload NuGet Artifact
                 uses: actions/upload-artifact@v2
                 with:
                     name: Fmod5Sharp.nupkg
-                    path: bin/Release/*.nupkg
+                    path: Fmod5Sharp/bin/Release/*.nupkg
             -   name: Upload to NuGet
                 if: contains(github.event.head_commit.message, '[publish]') == true
-                run: dotnet nuget push ./bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY
+                run: dotnet nuget push ./Fmod5Sharp/bin/Release/*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY
