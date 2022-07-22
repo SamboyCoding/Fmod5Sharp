@@ -22,10 +22,7 @@
         <TargetFrameworks>net6.0;netstandard2.0</TargetFrameworks>
         <Title>FMOD5 Sharp</Title>
         <Version>3.0.1</Version>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
-        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     </PropertyGroup>
 
     <ItemGroup>
