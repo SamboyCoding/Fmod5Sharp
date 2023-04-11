@@ -31,7 +31,7 @@ And get the samples stored inside it:
 ```c#
 List<FmodSample> samples = bank.Samples;
 int frequency = samples[0].Metadata.Frequency; //E.g. 44100
-uint numChannels = samples[0].Channels; //2 for stereo, 1 for mono.
+uint numChannels = samples[0].Metadata.Channels; //2 for stereo, 1 for mono.
 
 string name = samples[0].Name; //Null if not present in the bank file (which is usually the case).
 ```
