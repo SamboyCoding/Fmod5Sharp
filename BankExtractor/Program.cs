@@ -41,7 +41,7 @@ public static class Program
 
             if(!bankSample.RebuildAsStandardFileFormat(out var data, out var extension))
             {
-                Console.WriteLine($"Failed to extract sample {name}");
+                Console.WriteLine($"Failed to extract sample {name} (format {bank.Header.AudioType})");
                 continue;
             }
             

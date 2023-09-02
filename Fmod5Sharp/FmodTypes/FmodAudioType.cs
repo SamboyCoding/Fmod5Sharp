@@ -18,5 +18,6 @@
 		AT9 = 13,
 		XWMA = 14,
 		VORBIS = 15,
+		FADPCM = 16,
 	}
 }

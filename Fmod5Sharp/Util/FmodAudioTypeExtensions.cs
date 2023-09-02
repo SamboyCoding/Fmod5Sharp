@@ -13,6 +13,7 @@ namespace Fmod5Sharp.Util
                 FmodAudioType.PCM32 => true,
                 FmodAudioType.GCADPCM => true,
                 FmodAudioType.IMAADPCM => true,
+                FmodAudioType.FADPCM => true,
                 _ => false
             };
 
@@ -25,6 +26,7 @@ namespace Fmod5Sharp.Util
                 FmodAudioType.PCM32 => "wav",
                 FmodAudioType.GCADPCM => "wav",
                 FmodAudioType.IMAADPCM => "wav",
+                FmodAudioType.FADPCM => "wav",
                 _ => null
             };
     }

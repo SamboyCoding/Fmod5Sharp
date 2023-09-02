@@ -8,5 +8,6 @@ namespace Fmod5Sharp.Util
         internal static sbyte GetHighNibbleSigned(byte value) => SignedNibbles[(value >> 4) & 0xF];
         internal static sbyte GetLowNibbleSigned(byte value) => SignedNibbles[value & 0xF];
         internal static short Clamp(short val, short min, short max) => Math.Max(Math.Min(val, max), min);
+        internal static int ClampInt(int val, int min, int max) => Math.Max(Math.Min(val, max), min);
     }
 }
