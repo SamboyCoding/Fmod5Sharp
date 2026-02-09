@@ -1,6 +1,6 @@
-﻿using System.IO;
-using Fmod5Sharp.FmodTypes;
+﻿using Fmod5Sharp.FmodTypes;
 using NAudio.Wave;
+using System.IO;
 
 namespace Fmod5Sharp.CodecRebuilders
 {
@@ -28,7 +28,7 @@ namespace Fmod5Sharp.CodecRebuilders
             using var stream = new MemoryStream();
             using var writer = new WaveFileWriter(stream, format);
             
-            writer.Write(sample.SampleBytes, 0, sample.SampleBytes.Length);
+            writer.Write(sample.SampleBytes, 0, numChannels * width * (int) sample.Metadata.SampleCount);
 
             return stream.GetBuffer();
         }
