@@ -8,12 +8,12 @@ namespace Fmod5Sharp.FmodTypes
 	{
 		internal bool HasAnyChunks;
 		internal uint FrequencyId;
-		internal ulong DataOffset;
+		internal uint DataOffset;
 		internal List<FmodSampleChunk> Chunks = new();
 		internal int NumChannels;
 
 		public bool IsStereo;
-		public ulong SampleCount;
+		public uint SampleCount;
 
 		public int Frequency => FsbLoader.Frequencies.TryGetValue(FrequencyId, out var actualFrequency) ? actualFrequency : (int)FrequencyId; //If set by FREQUENCY chunk, id is actual frequency
 		public uint Channels => (uint)NumChannels;
@@ -31,8 +31,8 @@ namespace Fmod5Sharp.FmodTypes
 			
 			IsStereo = NumChannels == 2;
 			
-			DataOffset = encoded.Bits(7, 27) * 32;
-			SampleCount = encoded.Bits(34, 30);
+			DataOffset = (uint) encoded.Bits(7, 27) * 32;
+			SampleCount = (uint) encoded.Bits(34, 30);
 		}
 	}
 }

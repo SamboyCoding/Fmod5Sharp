@@ -1,4 +1,7 @@
 using Fmod5Sharp.CodecRebuilders;
+using Fmod5Sharp.FmodTypes;
+using NVorbis;
+using System.IO;
 using Xunit;
 
 namespace Fmod5Sharp.Tests
@@ -27,9 +30,7 @@ namespace Fmod5Sharp.Tests
             
             var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
             
-            Assert.NotEmpty(oggBytes);
-            
-            //Cannot assert on length output bytes because it changes with the version of libvorbis you use.
+            CheckSampleCount(sample, oggBytes);
         }
 
         [Fact]
@@ -43,7 +44,7 @@ namespace Fmod5Sharp.Tests
             
             var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
             
-            Assert.NotEmpty(oggBytes);
+            CheckSampleCount(sample, oggBytes);
         }
 
         [Fact]
@@ -57,7 +58,7 @@ namespace Fmod5Sharp.Tests
             
             var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
             
-            Assert.NotEmpty(oggBytes);
+            CheckSampleCount(sample, oggBytes);
         }
 
         [Fact]
@@ -71,7 +72,12 @@ namespace Fmod5Sharp.Tests
             
             var oggBytes = FmodVorbisRebuilder.RebuildOggFile(sample);
             
-            Assert.NotEmpty(oggBytes);
+            CheckSampleCount(sample, oggBytes);
+        }
+
+        private bool CheckSampleCount(FmodSample sample, byte[] oggBytes)
+        {
+            Assert.Equal(sample.Metadata.SampleCount, new VorbisReader(new MemoryStream(oggBytes)).TotalSamples);
         }
     }
 }

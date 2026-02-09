@@ -59,7 +59,7 @@ internal class FmodVorbisData
         }).ToArray();
     }
 
-    public int GetPacketBlockSize(byte[] packetBytes)
+    public uint GetPacketBlockSize(byte[] packetBytes)
     {
         var bitStream = new BitStream(packetBytes);
 
