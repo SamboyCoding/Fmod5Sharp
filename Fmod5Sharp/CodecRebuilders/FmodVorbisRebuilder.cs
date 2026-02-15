@@ -60,7 +60,7 @@ namespace Fmod5Sharp.CodecRebuilders
             
             oggStream.FlushAndCopyTo(outputStream, true);
 
-            CopySampleData(vorbisData, sample.SampleBytes, oggStream, outputStream);
+            CopySampleData(vorbisData, sample.Metadata.SampleCount, sample.SampleBytes, oggStream, outputStream);
 
             return outputStream.ToArray();
         }
@@ -130,7 +130,7 @@ namespace Fmod5Sharp.CodecRebuilders
             return new(oggMs.ToArray(), false, 0, 1);
         }
 
-        private static void CopySampleData(FmodVorbisData vorbisData, byte[] sampleBytes, OggStream oggStream, Stream outputStream)
+        private static void CopySampleData(FmodVorbisData vorbisData, uint sampleCount, byte[] sampleBytes, OggStream oggStream, Stream outputStream)
         {
             using var inputStream = new MemoryStream(sampleBytes);
             using var inputReader = new BinaryReader(inputStream);
@@ -138,8 +138,8 @@ namespace Fmod5Sharp.CodecRebuilders
             ReadSamplePackets(inputReader, out var packetLength, out var packets);
 
             var packetNum = 1;
-            var granulePos = 0;
-            var previousBlockSize = 0;
+            uint granulePos = 0;
+            uint previousBlockSize = 0;
             
             var finalPacketNum = packetLength.Count - 1;
             
@@ -158,16 +158,24 @@ namespace Fmod5Sharp.CodecRebuilders
                 else
                     granulePos += (blockSize + previousBlockSize) / 4;
                 
+                //Make sure to end the stream once we reach the sample count in the metadata.
+                if (granulePos > sampleCount)
+                    granulePos = sampleCount;
+
                 //Set previous block size
                 previousBlockSize = blockSize;
 
                 //Write the packet to the stream
-                oggStream.PacketIn(new(packet, isLast, granulePos,  packetNum));
+                oggStream.PacketIn(new(packet, isLast, (int) granulePos, packetNum));
                 oggStream.FlushAndCopyTo(outputStream, isLast);
+
+                //Early end to the stream if this is going past the sample count in the metadata.
+                if (granulePos == sampleCount)
+                    break;
             }
         }
 
-        private static void ReadSamplePackets(BinaryReader inputReader, out List<int> packetLengths, out List<byte[]> packets)
+        private static void ReadSamplePackets(BinaryReader inputReader, out List<ushort> packetLengths, out List<byte[]> packets)
         {
             packetLengths = new();
             packets = new();
