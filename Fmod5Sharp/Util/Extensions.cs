@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -41,13 +42,14 @@ namespace Fmod5Sharp.Util
             return (raw & mask) >> lowestBit;
         }
 
-        internal static string ReadNullTerminatedString(this byte[] bytes, int startOffset)
+        internal static string ReadNullTerminatedString(this Stream stream)
         {
-            var strLen = bytes.AsSpan(startOffset).IndexOf((byte)0);
-            if (strLen == -1)
-                throw new("Could not find null terminator");
-            
-            return Encoding.UTF8.GetString(bytes, startOffset, strLen);
+            List<byte> bytes = new(16);
+            int b;
+            while ((b = stream.ReadByte()) > 0)
+                bytes.Add((byte)b);
+
+            return Encoding.UTF8.GetString(bytes.ToArray());
         }
     }
 }
