@@ -176,7 +176,7 @@ namespace Fmod5Sharp.CodecRebuilders
             {
                 var packetSize = inputReader.ReadUInt16();
 
-                if (packetSize == 0)
+                if (packetSize == 0 || packetSize == 0xFFFF)
                     break; //EOS
 
                 packetLengths.Add(packetSize);

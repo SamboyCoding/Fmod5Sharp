@@ -10,9 +10,10 @@ namespace Fmod5Sharp
     {
         internal static readonly Dictionary<uint, int> Frequencies = new()
         {
-            { 1, 8000 },
+            { 0, 4_000 },
+            { 1, 8_000 },
             { 2, 11_000 },
-            { 3, 11_025 },
+            { 3, 12_000 },
             { 4, 16_000 },
             { 5, 22_050 },
             { 6, 24_000 },

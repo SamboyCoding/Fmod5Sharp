@@ -4,7 +4,8 @@ using Fmod5Sharp.Util;
 
 namespace Fmod5Sharp.FmodTypes
 {
-	public class FmodSampleMetadata : IBinaryReadable
+    //Can be verified against "FMOD::CodecFSB5::decodeSubSoundHeader" in fmod.dll
+    public class FmodSampleMetadata : IBinaryReadable
 	{
 		internal bool HasAnyChunks;
 		internal uint FrequencyId;
@@ -24,10 +25,16 @@ namespace Fmod5Sharp.FmodTypes
 			
 			HasAnyChunks = (encoded & 1) == 1; //Bit 0
 			FrequencyId = (uint) encoded.Bits( 1, 4); //Bits 1-4
-			var pow2 = (int) encoded.Bits(5, 2); //Bits 5-6
-			NumChannels = 1 << pow2;
-			if (NumChannels > 2)
-				throw new("> 2 channels not supported");
+
+			int channelBits = (int)encoded.Bits(5, 2); //Bits 5-6
+			NumChannels = channelBits switch
+			{
+				0 => 1,
+				1 => 2,
+				2 => 6,
+				3 => 8,
+				_ => 0
+			};
 			
 			IsStereo = NumChannels == 2;
 			
