@@ -16,7 +16,7 @@ namespace Fmod5Sharp.FmodTypes
             SampleBytes = sampleBytes;
         }
 
-#if NET6_0
+#if NET6_0_OR_GREATER
 		public bool RebuildAsStandardFileFormat([NotNullWhen(true)] out byte[]? data, [NotNullWhen(true)] out string? fileExtension)
 #else
         public bool RebuildAsStandardFileFormat(out byte[]? data, out string? fileExtension)

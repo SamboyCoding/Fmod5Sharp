@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Fmod5Sharp.FmodTypes;
 using Fmod5Sharp.Util;
@@ -49,12 +48,16 @@ namespace Fmod5Sharp
 
                 if (i < header.Samples.Count - 1)
                 {
-                    lastByteOfSample = (long)header.Samples[i + 1].DataOffset;
+                    lastByteOfSample = header.Samples[i + 1].DataOffset;
                 }
 
-                byte[] sampleData = new byte[lastByteOfSample - firstByteOfSample];
+                var sampleData = new byte[lastByteOfSample - firstByteOfSample];
                 stream.Position = dataStartOffset + firstByteOfSample;
+#if NET8_0_OR_GREATER
+                stream.ReadExactly(sampleData, 0, sampleData.Length);
+#else 
                 stream.Read(sampleData, 0, sampleData.Length);
+#endif
 
                 var sample = new FmodSample(sampleMetadata, sampleData);
 

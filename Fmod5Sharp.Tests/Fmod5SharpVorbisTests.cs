@@ -75,7 +75,7 @@ namespace Fmod5Sharp.Tests
             CheckSampleCount(sample, oggBytes);
         }
 
-        private bool CheckSampleCount(FmodSample sample, byte[] oggBytes)
+        private void CheckSampleCount(FmodSample sample, byte[] oggBytes)
         {
             Assert.Equal(sample.Metadata.SampleCount, new VorbisReader(new MemoryStream(oggBytes)).TotalSamples);
         }
