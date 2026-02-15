@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Fmod5Sharp.Util
 {
@@ -8,5 +9,13 @@ namespace Fmod5Sharp.Util
         internal static sbyte GetHighNibbleSigned(byte value) => SignedNibbles[(value >> 4) & 0xF];
         internal static sbyte GetLowNibbleSigned(byte value) => SignedNibbles[value & 0xF];
         internal static short Clamp(short val, short min, short max) => Math.Max(Math.Min(val, max), min);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static short ClampToShort(int value)
+        {
+            if (value < short.MinValue) return short.MinValue;
+            if (value > short.MaxValue) return short.MaxValue;
+            return (short)value;
+        }
     }
 }
