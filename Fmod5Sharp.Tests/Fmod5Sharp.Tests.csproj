@@ -16,8 +16,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-        <PackageReference Include="NAudio.Core" Version="2.2.1"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+        <PackageReference Include="NAudio.Core" Version="2.3.0"/>
         <PackageReference Include="NVorbis" Version="0.10.5" />
         <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
