@@ -52,8 +52,10 @@ namespace Fmod5Sharp.CodecRebuilders
             //Sample changes by the delta
             sampleDecoded += delta;
 
-            //New sample becomes the previous value, but clamped to a short.
-            hist = Utils.Clamp((short)sampleDecoded, short.MinValue, short.MaxValue);
+            //New sample becomes the previous value, saturated - NOT wrapped - to a short.
+            //Casting to short first would truncate (i.e. wrap around) any out-of-range value,
+            //which is exactly what the clamp is supposed to prevent. See ClampToShort.
+            hist = Utils.ClampToShort(sampleDecoded);
 
             //Step index changes based on what was stored in the file, clamped to fit in the array
             stepIndex += IMA_IndexTable[sampleNibble];
