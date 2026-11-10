@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.IO;
 using Fmod5Sharp.CodecRebuilders;
 using Fmod5Sharp.FmodTypes;
+using NAudio.Wave;
 using Xunit;
 
 namespace Fmod5Sharp.Tests
@@ -26,8 +28,8 @@ namespace Fmod5Sharp.Tests
             var fsb = FsbLoader.LoadFsbFromByteArray(rawData);
 
             var bytes = FmodImaAdPcmRebuilder.Rebuild(fsb.Samples[0]);
-            
-            Assert.NotEmpty(bytes);
+
+            Assert.Equal(fsb.Samples[0].Metadata.SampleCount, new WaveFileReader(new MemoryStream(bytes)).SampleCount);
         }
 
         [Fact]
@@ -40,8 +42,8 @@ namespace Fmod5Sharp.Tests
             Assert.Equal(FmodAudioType.IMAADPCM, fsb.Header.AudioType);
             
             var bytes = FmodImaAdPcmRebuilder.Rebuild(fsb.Samples[0]);
-            
-            Assert.NotEmpty(bytes);
+
+            Assert.Equal(fsb.Samples[0].Metadata.SampleCount, new WaveFileReader(new MemoryStream(bytes)).SampleCount);
         }
     }
 }
