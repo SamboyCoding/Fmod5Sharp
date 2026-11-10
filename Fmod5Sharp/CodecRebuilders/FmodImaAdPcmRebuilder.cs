@@ -194,11 +194,14 @@ namespace Fmod5Sharp.CodecRebuilders
                 16
             );
             using var stream = new MemoryStream();
-            using var writer = new WaveFileWriter(stream, format);
+            
+            // Dispose of WaveFileWriter before ToArray
+            using (var writer = new WaveFileWriter(stream, format))
+            {
+                var pcmShorts = numChannels == 1 ? DecodeSamplesXboxIma(sample) : DecodeSamplesFsbIma(sample);
 
-            var pcmShorts = numChannels == 1 ? DecodeSamplesXboxIma(sample) : DecodeSamplesFsbIma(sample);
-
-            writer.WriteSamples(pcmShorts, 0, pcmShorts.Length);
+                writer.WriteSamples(pcmShorts, 0, pcmShorts.Length);
+            }
 
             return stream.ToArray();
         }
